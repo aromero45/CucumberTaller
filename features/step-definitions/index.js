@@ -43,8 +43,6 @@ defineSupportCode(({Given, When, Then}) => {
 
   });
 
-
-
   When(/^I fill with (.*) and (.*)$/ , (email, password) => {
     browser.waitForVisible('.cajaLogIn', 5000);
      var cajaLogIn = browser.element('.cajaLogIn');

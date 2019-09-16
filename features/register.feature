@@ -11,4 +11,4 @@ Scenario Outline: register
 
     Examples:
       | name                 | lastname       | email                                            |
-      | alex                 | romero         | a.romero4@uniandes.edu.co                        |
+      | Alex                 | romero         | a.romero4@uniandes.edu.co                        |
