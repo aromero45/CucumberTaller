@@ -15,9 +15,10 @@ defineSupportCode(({Given, When, Then}) => {
     setTimeout(function(){
        browser.click('button=Ingresar');
     },3000);
+    browser.waitForVisible('.cajaSignUp', 5000);
   });
 
-  When(/^I fill with (.*) and (.*) and (.*)$/ , (name, lastname, email) => {
+  When(/^I fill it with (.*) and (.*) and (.*) and (.*)$/ , (name, lastname, email, password) => {
     browser.waitForVisible('.cajaSignUp', 5000);
      var cajaSignUp = browser.element('.cajaSignUp');
 
@@ -31,7 +32,38 @@ defineSupportCode(({Given, When, Then}) => {
 
     var mailInput = cajaSignUp.element('input[name="correo"]');
     mailInput.click();
-    mailInput.keys(email)
+    mailInput.keys(email);
+
+    var passwordInput = cajaSignUp.element('input[name="password"]');
+    passwordInput.click();
+    passwordInput.keys(password)
+  });
+  /* it('Visits los estudiantes register', function() {
+         cy.visit('https://losestudiantes.co')
+         cy.contains('Cerrar').click()
+         cy.contains('Ingresar').click()
+         cy.get('.cajaSignUp').find('input[name="nombre"]').click().type("Alex")
+         cy.get('.cajaSignUp').find('input[name="apellido"]').click().type("Romero")
+         cy.get('.cajaSignUp').find('input[name="correo"]').click().type("a.romero4@uniandes.edu.co")
+         cy.get('.cajaSignUp').find('select[name="idUniversidad"]').select("Universidad de los Andes")
+         cy.get('.cajaSignUp').find('input[type="checkbox"]').check()
+         cy.get('.cajaSignUp').find('select[name="idPrograma"]').select("Maestría en Ingeniería de Software")
+         cy.get('.cajaSignUp').find('input[name="password"]').click().type("12345678")
+         cy.get('.cajaSignUp').contains('Registrarse').click()
+   */
+  When('I check all', () => {
+    browser.waitForVisible('.cajaSignUp', 5000);
+    var cajaSignUp = browser.element('.cajaSignUp');
+    var universityInput = cajaSignUp.element('select[name="idUniversidad"]');
+    var programCheckbox=cajaSignUp.element('input[type=checkbox]');
+    programCheckbox.click()
+  });
+  When('I check all again', () => {
+    browser.waitForVisible('.cajaSignUp', 5000);
+    var cajaSignUp = browser.element('.cajaSignUp');
+    var programaInput = cajaSignUp.element('select[name="idPrograma"]');
+    programaInput.element('Arte').click();
+    cajaSignUp.element('button=Registrarse').click()
   });
 
   When('I try to register', () => {
@@ -60,20 +92,6 @@ defineSupportCode(({Given, When, Then}) => {
    var cajaLogIn = browser.element('.cajaLogIn');
    cajaLogIn.element('button=Ingresar').click()
  });
-
-/* it('Visits los estudiantes register', function() {
-       cy.visit('https://losestudiantes.co')
-       cy.contains('Cerrar').click()
-       cy.contains('Ingresar').click()
-       cy.get('.cajaSignUp').find('input[name="nombre"]').click().type("Alex")
-       cy.get('.cajaSignUp').find('input[name="apellido"]').click().type("Romero")
-       cy.get('.cajaSignUp').find('input[name="correo"]').click().type("a.romero4@uniandes.edu.co")
-       cy.get('.cajaSignUp').find('select[name="idUniversidad"]').select("Universidad de los Andes")
-       cy.get('.cajaSignUp').find('input[type="checkbox"]').check()
-       cy.get('.cajaSignUp').find('select[name="idPrograma"]').select("Maestría en Ingeniería de Software")
-       cy.get('.cajaSignUp').find('input[name="password"]').click().type("12345678")
-       cy.get('.cajaSignUp').contains('Registrarse').click()
- */
 
 
   Then('I expect to see {string}', error => {
